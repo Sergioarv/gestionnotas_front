@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+
+/* Contenedor principal para dar orden a los modulos */
+.contenedor {
+    padding-inline-end: 2%;
+    padding-inline-start: 2%;
+    margin-top: 15px;
+    width: 100% !important;
+    min-width: fit-content;
+    max-width: 100%;
+}
+
+/* card que agrupan las diferentes secciones de los modulos*/
+.contenedor .card .card-header {
+    background-color: rgb(216, 216, 216);
+    border: 1;
+    border-color: black;
+}
+
+/* Proporciona untamaño y vista de las tablas */
+.table {
+    display: table;
+    border-collapse: collapse;
+    width: 100% !important;
+    min-width: fit-content;
+    max-width: 100%;
+}
+
+/* Proporciona un tamaño fijo para los encabezados de las tablas */
+.table thead th {
+    width: 200px;
+    min-width: 30px;
+}
+
+/* Proporciona un tamaño fijo para las celdas de las tablas */
+.table tbody td {
+    width: 50px;
+    min-width: 100%;
+    max-width: min-content;
+}
+
+/* Proporciona estilopara los encabezados de las tablas */
+.thead-col {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+}
+
+/* proporciona un estilo propio a un boton de clase pripia llamado edit */
+.contenedor .btn-edit {
+    color: whitesmoke;
+    background-color: #6581d5;
+    border-color: #6581d5;
+    max-width: fit-content;
+}
