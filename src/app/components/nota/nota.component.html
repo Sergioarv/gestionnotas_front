@@ -1,4 +1,9 @@
 <div class="contenedor">
+
+    <ngx-loading [show]="cargando"
+        [config]="{ backdropBorderRadius: '3px', primaryColour: '#00ff66', secondaryColour: '#ff6600', tertiaryColour: '#6600ff', fullScreenBackdrop: true }">
+    </ngx-loading>
+
     <div class="card">
         <div class="card-header">
             <h5>Busqueda Avanzada</h5>
@@ -28,10 +33,11 @@
                 <br>
                 <div class="row">
                     <div class="col-s-12 col-lg-6">
-                        <button class="btn btn-primary" (click)="filtrar()"
-                            [disabled]="!filtrarForm.valid"><em class="fa-solid fa-magnifying-glass"></em> Buscar</button>
+                        <button class="btn btn-primary" (click)="filtrar()" [disabled]="!filtrarForm.valid"><em
+                                class="fa-solid fa-magnifying-glass"></em> Buscar</button>
                         &nbsp;
-                        <button class="btn btn-secondary" (click)="limpiar()"><em class="fa-solid fa-eraser"></em> Limpiar</button>
+                        <button class="btn btn-secondary" (click)="limpiar()"><em class="fa-solid fa-eraser"></em>
+                            Limpiar</button>
                     </div>
                 </div>
             </form>
@@ -46,7 +52,7 @@
                     <h5 class="card-title">Lista de notas</h5>
                 </div>
                 <div class="col-8">
-                    <button type="button" class="btn btn-primary" style="float: right;">
+                    <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;">
                         <em class="fa-solid fa-person-circle-plus"></em>&nbsp;Agregar Nota</button>
                 </div>
             </div>
@@ -69,12 +75,14 @@
                         <td>{{ nota.materia }}</td>
                         <td>{{ nota.calificacion }}</td>
                         <td>
-                            <button type="button" class="btn btn-edit" data-toggle="modal" style="width: fit-content;"
+                            <button type="button" class="btn btn-edit" 
+                            (click)="seleccionarEditar(nota, contentEdit)" style="width: fit-content;"
                                 data-target="#editarDocente">
                                 <em class="far fa-edit"></em> Editar
                             </button>
                             &nbsp;
-                            <button type="button" class="btn btn-danger" data-toggle="modal" style="width: fit-content;"
+                            <button type="button" class="btn btn-danger" 
+                            (click)="seleccionarEliminar(nota, contentEliminar)" style="width: fit-content;"
                                 data-target="#eliminarDocente">
                                 <em class="fas fa-trash-alt"></em> Eliminar
                             </button>
@@ -125,4 +133,121 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal agregar -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h5 class="modal-tittle" id="modal-basic-tittle">Agregar Estudiante</h5>
+        </div>
+        <div class="modal-body">
+            <form class="form-group was-validated" [formGroup]="agregarNotaForm" novalidate>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Calificacion:</label>
+                        <input type="text" class="form-control" formControlName="calificacion" required [pattern]="regNumeros">
+                        <div class="invalid-feedback">Por favor ingrese o verifique la calificación</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Estudiante:</label>
+                        <select class="form-control" formControlName="estudiantes">
+                            <option selected value=''>{{ listaEstudiantes.length == 0 ? 'No hay estudiantes' :
+                                'Seleccione un estudiante' }}</option>
+                            <option *ngFor="let estudiante of listaEstudiantes" value="{{ estudiante.idusuario }}">{{estudiante.nombre }} {{ estudiante.apellido}}</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor ingrese o verifique el estudiante</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Asignatura:</label>
+                        <select class="form-control" formControlName="asignaturas">
+                            <option selected value=''>{{ listaAsignaturas.length == 0 ? 'No hay asignaturas' :
+                                'Seleccione un asignatura' }}</option>
+                            <option *ngFor="let asignatura of listaAsignaturas" value="{{ asignatura.idasignatura }}">{{ asignatura.nombre }}</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor ingrese o verifique el asignatura</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="agregarNota()"
+                [disabled]="!agregarNotaForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearAgregarNotaForm()">
+                <em class="fa-solid fa-ban"></em> Cancelar</button>
+        </div>
+    </ng-template>
+
+    <!-- Modal editar -->
+    <ng-template #contentEdit let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h5 class="modal-tittle" id="modal-basic-tittle">Editar Estudiante</h5>
+        </div>
+        <div class="modal-body">
+            <form class="form-group was-validated" [formGroup]="editarNotaForm" novalidate>
+                <div class="row" hidden>
+                    <div class="col-12">
+                        <label>Id Nota:</label>
+                        <input type="text" class="form-control" formControlName="idnota">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Calificacion:</label>
+                        <input type="text" class="form-control" formControlName="calificacion" required [pattern]="regNumeros">
+                        <div class="invalid-feedback">Por favor ingrese o verifique la calificación</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Estudiante:</label>
+                        <select class="form-control" formControlName="estudiantes">
+                            <option selected [value]=''>{{ listaEstudiantes.length == 0 ? 'No hay estudiantes' :
+                                'Seleccione un estudiante' }}</option>
+                            <option *ngFor="let estudiante of listaEstudiantes" value="{{ estudiante.idusuario }}">{{estudiante.nombre }} {{ estudiante.apellido}}</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor ingrese o verifique el estudiante</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Asignatura:</label>
+                        <select class="form-control" formControlName="asignaturas">
+                            <option selected value=''>{{ listaAsignaturas.length == 0 ? 'No hay asignaturas' :
+                                'Seleccione un asignatura' }}</option>
+                            <option *ngFor="let asignatura of listaAsignaturas" value="{{ asignatura.idasignatura }}">{{ asignatura.nombre }}</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor ingrese o verifique el asignatura</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="editarNota()"
+                [disabled]="!editarNotaForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearEditarNotaForm()">
+                <em class="fa-solid fa-ban"></em> Cancelar</button>
+        </div>
+    </ng-template>
+
+        <!-- Modal de Confirmación eliminar -->
+    <ng-template #contentEliminar letc="close" let-d="dismiss">
+        <div class="modal-header">
+            <h5 class="modal-tittle" id="modal-basi-tittle">Eliminar Nota</h5>
+        </div>
+        <div class="modal-body">
+            <h6>¿Está seguro que desea eliminar la nota?</h6><br />
+            <h6>Se eliminará la siguiente nota:<br />
+                Estudiante: {{ notaEliminar.estudiante.nombre }} {{ notaEliminar.estudiante.apellido }} <br>
+                Asignatura: {{ notaEliminar.asignatura.nombre }}</h6>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="eliminarNota()"><em
+                    class="fa-regular fa-circle-check"></em> Confirmar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearEliminarNotaForm()"><em class="fa-solid fa-ban"></em>
+                Cancelar</button>
+        </div>
+    </ng-template>
 </div>

@@ -1,4 +1,5 @@
 export class NotaDTO {
+    idnota: string;
     idusuario: string;
     idasignatura: string;
     nombre: string;
@@ -8,6 +9,7 @@ export class NotaDTO {
     calificacion: number;
 
     constructor(){
+        this.idnota = "";
         this.idusuario = "";
         this.idasignatura = "";
         this.nombre = "";

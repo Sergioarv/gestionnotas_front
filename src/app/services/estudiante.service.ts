@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { GlobalConstant } from '../utils/constants/global.constants';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotaService {
+export class EstudianteService {
 
   constructor(
     private http: HttpClient
   ) { }
 
-  public filtrar(nombre: any, apellido: any, materia: any, pagina: any, cantPagina: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_NOTA_FILTRO;
+  
+  public filtrar(nombre: any, apellido: any, pagina: any, cantPagina: any): Observable<any> {
+
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_ESTUDIANTE_FILTRO;
 
     let params = '';
 
@@ -30,14 +32,6 @@ export class NotaService {
         params = params.concat('&apellido=').concat(apellido);
       } else {
         params = params.concat('?apellido=').concat(apellido);
-      }
-    }
-
-    if (materia) {
-      if (params.length > 0) {
-        params = params.concat('&materia=').concat(materia);
-      } else {
-        params = params.concat('?materia=').concat(materia);
       }
     }
 
@@ -60,27 +54,28 @@ export class NotaService {
     return this.http.get<any>(URL + params);
   }
 
-  public agregar(nuevaNota: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_NOTA;
+  public agregar(nuevoEstudiante: any): Observable<any> {
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_ESTUDIANTE;
 
-    return this.http.post(URL, nuevaNota);
+    return this.http.post(URL, nuevoEstudiante);
   }
 
-  public actualizar(actualizarNota: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_NOTA;
+  public actualizar(actualizarEstudiante: any): Observable<any> {
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_ESTUDIANTE;
 
-    return this.http.put(URL, actualizarNota);
+    return this.http.put(URL, actualizarEstudiante);
   }
 
-  public eliminar(nota: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_NOTA;
+  public eliminar(estudiante: any): Observable<any> {
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_ESTUDIANTE;
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-      body: nota,
+      body: estudiante,
     };
 
     return this.http.delete<any>(URL, options);
   }
+
 }

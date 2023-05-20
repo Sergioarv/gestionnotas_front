@@ -8,6 +8,12 @@ import { AppComponent } from './components/app/app.component';
 import { NotaComponent } from './components/nota/nota.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxLoadingModule } from "ngx-loading";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,8 +22,20 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    NgxLoadingModule.forRoot({}),
+    ToastrModule.forRoot({
+      maxOpened: 2,
+      timeOut: 3000,
+      closeButton: true,
+      newestOnTop: true,
+      countDuplicates:true,
+      preventDuplicates: true,
+      resetTimeoutOnDuplicate: true
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
