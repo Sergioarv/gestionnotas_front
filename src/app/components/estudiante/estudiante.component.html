@@ -11,23 +11,17 @@
         <div class="card-body">
             <form class="form-group" [formGroup]="filtrarForm" class="was-validated">
                 <div class="row">
-                    <div class="col-sm-12 col-lg-4">
+                    <div class="col-sm-12 col-lg-6">
                         <label>Nombre:</label>
                         <input type="text" class="form-control" formControlName="nombre" [pattern]="regNombre"
                             placeholder="Ingrese el nombre a buscar">
                         <div class="invalid-feedback">Por favor verifique el nombre</div>
                     </div>
-                    <div class="col-sm-12 col-lg-4">
+                    <div class="col-sm-12 col-lg-6">
                         <label>Apellido:</label>
                         <input type="text" class="form-control" formControlName="apellido" [pattern]="regNombre"
                             placeholder="Ingrese el apellido a buscar">
                         <div class="invalid-feedback">Por favor verifique el apellido</div>
-                    </div>
-                    <div class="col-sm-12 col-lg-4">
-                        <label>Materia:</label>
-                        <input type="text" class="form-control" formControlName="materia" [pattern]="regNombre"
-                            placeholder="Ingrese la materia a buscar">
-                        <div class="invalid-feedback">Por favor verifique la materia</div>
                     </div>
                 </div>
                 <br>
@@ -49,44 +43,44 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-4">
-                    <h5 class="card-title">Lista de notas</h5>
+                    <h5 class="card-title">Lista de estudiantes</h5>
                 </div>
                 <div class="col-8">
                     <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;">
-                        <em class="fa-solid fa-person-circle-plus"></em>&nbsp;Agregar Nota</button>
+                        <em class="fa-solid fa-person-circle-plus"></em>&nbsp;Agregar Estudiante</button>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <table class="table table-bordered table-hover table-responsive" style="overflow-x: scroll;">
-                <caption>Lista de notas</caption>
+                <caption>Lista de estudiantes</caption>
                 <thead class="thead-col">
                     <tr>
                         <th scope="col" style="max-width: 40px;" hidden>Id</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Materia</th>
-                        <th scope="col">Calificaión</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Contraseña</th>
                         <th scope="col">Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let nota of listaNota">
-                        <td>{{ nota.nombre }} {{ nota.apellido}}</td>
-                        <td>{{ nota.materia }}</td>
-                        <td>{{ nota.calificacion }}</td>
+                    <tr *ngFor="let estudiante of listaEstudiante">
+                        <td>{{ estudiante.nombre }} {{ estudiante.apellido}}</td>
+                        <td>{{ estudiante.correo }}</td>
+                        <td>{{ estudiante.contrasenia }}</td>
                         <td>
                             <button type="button" class="btn btn-edit" 
-                            (click)="seleccionarEditar(nota, contentEdit)" style="width: fit-content;">
+                            (click)="seleccionarEditar(estudiante, contentEdit)" style="width: fit-content;">
                                 <em class="far fa-edit"></em> Editar
                             </button>
                             &nbsp;
                             <button type="button" class="btn btn-danger" 
-                            (click)="seleccionarEliminar(nota, contentEliminar)" style="width: fit-content;">
+                            (click)="seleccionarEliminar(estudiante, contentEliminar)" style="width: fit-content;">
                                 <em class="fas fa-trash-alt"></em> Eliminar
                             </button>
                         </td>
                     </tr>
-                    <tr *ngIf="listaNota.length == 0">
+                    <tr *ngIf="listaEstudiante.length == 0">
                         <td colspan="8">
                             <p style="text-align: center; font-size: x-large; color: red;">
                                 {{"Lista vacia"}}</p>
@@ -135,45 +129,44 @@
     <!-- Modal agregar -->
     <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
-            <h5 class="modal-tittle" id="modal-basic-tittle">Agregar Nota</h5>
+            <h5 class="modal-tittle" id="modal-basic-tittle">Agregar Estudiante</h5>
         </div>
         <div class="modal-body">
-            <form class="form-group was-validated" [formGroup]="agregarNotaForm" novalidate>
+            <form class="form-group was-validated" [formGroup]="agregarForm" novalidate>
                 <div class="row">
                     <div class="col-12">
-                        <label>Calificacion:</label>
-                        <input type="text" class="form-control" formControlName="calificacion" required [pattern]="regNumeros">
-                        <div class="invalid-feedback">Por favor ingrese o verifique la calificación</div>
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" formControlName="nombre" required [pattern]="regNombre">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el nombre</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label>Estudiante:</label>
-                        <select class="form-control" formControlName="estudiantes">
-                            <option selected value=''>{{ listaEstudiantes.length == 0 ? 'No hay estudiantes' :
-                                'Seleccione un estudiante' }}</option>
-                            <option *ngFor="let estudiante of listaEstudiantes" value="{{ estudiante.idusuario }}">{{estudiante.nombre }} {{ estudiante.apellido}}</option>
-                        </select>
-                        <div class="invalid-feedback">Por favor ingrese o verifique el estudiante</div>
+                        <label>Apellido:</label>
+                        <input type="text" class="form-control" formControlName="apellido" required [pattern]="regNombre">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el apellido</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label>Asignatura:</label>
-                        <select class="form-control" formControlName="asignaturas">
-                            <option selected value=''>{{ listaAsignaturas.length == 0 ? 'No hay asignaturas' :
-                                'Seleccione un asignatura' }}</option>
-                            <option *ngFor="let asignatura of listaAsignaturas" value="{{ asignatura.idasignatura }}">{{ asignatura.nombre }}</option>
-                        </select>
-                        <div class="invalid-feedback">Por favor ingrese o verifique el asignatura</div>
+                        <label>Correo:</label>
+                        <input type="text" class="form-control" formControlName="correo" required [pattern]="regCorreo">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el correo</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Contraseña:</label>
+                        <input type="text" class="form-control" formControlName="contrasenia" required [pattern]="regPassword">
+                        <div class="invalid-feedback">Por favor ingrese o verifique la contraseña</div>
                     </div>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="agregarNota()"
-                [disabled]="!agregarNotaForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
-            <button type="button" class="btn btn-danger" (click)="resetearAgregarNotaForm()">
+            <button type="button" class="btn btn-success" (click)="agregarEstudiante()"
+                [disabled]="!agregarForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearAgregarForm()">
                 <em class="fa-solid fa-ban"></em> Cancelar</button>
         </div>
     </ng-template>
@@ -181,51 +174,50 @@
     <!-- Modal editar -->
     <ng-template #contentEdit let-c="close" let-d="dismiss">
         <div class="modal-header">
-            <h5 class="modal-tittle" id="modal-basic-tittle">Editar Nota</h5>
+            <h5 class="modal-tittle" id="modal-basic-tittle">Editar Estudiante</h5>
         </div>
         <div class="modal-body">
-            <form class="form-group was-validated" [formGroup]="editarNotaForm" novalidate>
+            <form class="form-group was-validated" [formGroup]="editarForm" novalidate>
                 <div class="row" hidden>
                     <div class="col-12">
-                        <label>Id Nota:</label>
-                        <input type="text" class="form-control" formControlName="idnota">
+                        <label>Id Estudiante:</label>
+                        <input type="text" class="form-control" formControlName="idusuario">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label>Calificacion:</label>
-                        <input type="text" class="form-control" formControlName="calificacion" required [pattern]="regNumeros">
-                        <div class="invalid-feedback">Por favor ingrese o verifique la calificación</div>
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" formControlName="nombre" required [pattern]="regNombre">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el nombre</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label>Estudiante:</label>
-                        <select class="form-control" formControlName="estudiantes">
-                            <option selected [value]=''>{{ listaEstudiantes.length == 0 ? 'No hay estudiantes' :
-                                'Seleccione un estudiante' }}</option>
-                            <option *ngFor="let estudiante of listaEstudiantes" value="{{ estudiante.idusuario }}">{{estudiante.nombre }} {{ estudiante.apellido}}</option>
-                        </select>
-                        <div class="invalid-feedback">Por favor ingrese o verifique el estudiante</div>
+                        <label>Apellido:</label>
+                        <input type="text" class="form-control" formControlName="apellido" required [pattern]="regNombre">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el apellido</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label>Asignatura:</label>
-                        <select class="form-control" formControlName="asignaturas">
-                            <option selected value=''>{{ listaAsignaturas.length == 0 ? 'No hay asignaturas' :
-                                'Seleccione un asignatura' }}</option>
-                            <option *ngFor="let asignatura of listaAsignaturas" value="{{ asignatura.idasignatura }}">{{ asignatura.nombre }}</option>
-                        </select>
-                        <div class="invalid-feedback">Por favor ingrese o verifique el asignatura</div>
+                        <label>Correo:</label>
+                        <input type="text" class="form-control" formControlName="correo" required [pattern]="regCorreo">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el correo</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Contraseña:</label>
+                        <input type="text" class="form-control" formControlName="contrasenia" required [pattern]="regPassword">
+                        <div class="invalid-feedback">Por favor ingrese o verifique la contraseña</div>
                     </div>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="editarNota()"
-                [disabled]="!editarNotaForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
-            <button type="button" class="btn btn-danger" (click)="resetearEditarNotaForm()">
+            <button type="button" class="btn btn-success" (click)="editarEstudiante()"
+                [disabled]="!editarForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearEditarForm()">
                 <em class="fa-solid fa-ban"></em> Cancelar</button>
         </div>
     </ng-template>
@@ -233,18 +225,18 @@
         <!-- Modal de Confirmación eliminar -->
     <ng-template #contentEliminar letc="close" let-d="dismiss">
         <div class="modal-header">
-            <h5 class="modal-tittle" id="modal-basi-tittle">Eliminar Nota</h5>
+            <h5 class="modal-tittle" id="modal-basi-tittle">Eliminar Estudiante</h5>
         </div>
         <div class="modal-body">
-            <h6>¿Está seguro que desea eliminar la nota?</h6><br />
-            <h6>Se eliminará la siguiente nota:<br />
-                Estudiante: {{ notaEliminar.estudiante.nombre }} {{ notaEliminar.estudiante.apellido }} <br>
-                Asignatura: {{ notaEliminar.asignatura.nombre }}</h6>
+            <h6>¿Está seguro que desea eliminar el estudiante?</h6><br />
+            <h6>Se eliminará el siguiente estudiante:<br />
+                Nombre: {{ estudianteEliminar.nombre }} {{ estudianteEliminar.apellido }} <br>
+                Correo: {{ estudianteEliminar.correo }}</h6>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="eliminarNota()"><em
+            <button type="button" class="btn btn-success" (click)="eliminarEstudiante()"><em
                     class="fa-regular fa-circle-check"></em> Confirmar</button>
-            <button type="button" class="btn btn-danger" (click)="resetearEliminarNotaForm()"><em class="fa-solid fa-ban"></em>
+            <button type="button" class="btn btn-danger" (click)="resetearEliminarForm()"><em class="fa-solid fa-ban"></em>
                 Cancelar</button>
         </div>
     </ng-template>

@@ -12,12 +12,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingModule } from "ngx-loading";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfesorComponent } from './components/profesor/profesor.component';
+import { EstudianteComponent } from './components/estudiante/estudiante.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotaComponent
+    NotaComponent,
+    ProfesorComponent,
+    EstudianteComponent
   ],
   imports: [
     BrowserModule,
