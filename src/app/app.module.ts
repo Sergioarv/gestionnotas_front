@@ -14,6 +14,7 @@ import { NgxLoadingModule } from "ngx-loading";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesorComponent } from './components/profesor/profesor.component';
 import { EstudianteComponent } from './components/estudiante/estudiante.component';
+import { AsignaturaComponent } from './components/asignatura/asignatura.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { EstudianteComponent } from './components/estudiante/estudiante.componen
     AppComponent,
     NotaComponent,
     ProfesorComponent,
-    EstudianteComponent
+    EstudianteComponent,
+    AsignaturaComponent
   ],
   imports: [
     BrowserModule,

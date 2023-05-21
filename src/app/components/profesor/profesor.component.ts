@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Asignatura } from 'src/app/models/asignatura';
 import { Profesor } from 'src/app/models/profesor';
+import { AsignaturaService } from 'src/app/services/asignatura.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { GlobalConstant } from 'src/app/utils/constants/global.constants';
 
@@ -22,6 +24,8 @@ export class ProfesorComponent implements OnInit {
 
   closeResult = '';
 
+  listaAsignaturas: Asignatura[];
+  listaAsignaturasAgregar: Asignatura[];
   listaProfesor: Profesor[];
   profesorEliminar: Profesor;
 
@@ -41,7 +45,9 @@ export class ProfesorComponent implements OnInit {
     nombre: new FormControl('', [Validators.pattern(this.regNombre)]),
     apellido: new FormControl('', [Validators.pattern(this.regNombre)]),
     correo: new FormControl('', [Validators.pattern(this.regCorreo)]),
-    contrasenia: new FormControl('', [Validators.pattern(this.regPassword)])
+    contrasenia: new FormControl('', [Validators.pattern(this.regPassword)]),
+    asignaturas: new FormControl(''),
+    asignaturasAdd: new FormControl('')
   });
 
   editarForm = new FormGroup({
@@ -49,20 +55,26 @@ export class ProfesorComponent implements OnInit {
     nombre: new FormControl('', [Validators.pattern(this.regNombre)]),
     apellido: new FormControl('', [Validators.pattern(this.regNombre)]),
     correo: new FormControl('', [Validators.pattern(this.regCorreo)]),
-    contrasenia: new FormControl('', [Validators.pattern(this.regPassword)])
+    contrasenia: new FormControl('', [Validators.pattern(this.regPassword)]),
+    asignaturas: new FormControl(''),
+    asignaturasAdd: new FormControl('')
   });
 
   constructor(
     private toastrService: ToastrService,
     private modalService: NgbModal,
     config: NgbModalConfig,
-    private profesorService: ProfesorService
+    private profesorService: ProfesorService,
+    private asignaturaService: AsignaturaService
   ) {
     this.listaProfesor = [];
     this.profesorEliminar = new Profesor();
+    this.listaAsignaturas = [];
+    this.listaAsignaturasAgregar = [];
   }
 
   ngOnInit(): void {
+    this.listarCombox();
     this.filtrar();
   }
 
@@ -123,7 +135,7 @@ export class ProfesorComponent implements OnInit {
     });
   }
 
-  editarProfesor(){
+  editarProfesor() {
     this.cargando = true;
 
     const idusuario = this.editarForm.controls['idusuario'].value;
@@ -132,16 +144,16 @@ export class ProfesorComponent implements OnInit {
     const correo = this.editarForm.controls['correo'].value;
     const contrasenia = this.editarForm.controls['contrasenia'].value;
 
-    const actualizarPro = this.listaProfesor.find((profR : Profesor) => profR.idusuario === idusuario);
+    const actualizarPro = this.listaProfesor.find((profR: Profesor) => profR.idusuario === idusuario);
 
-    if(actualizarPro){
-      actualizarPro.nombre = nombre? nombre : actualizarPro.nombre;
-      actualizarPro.apellido = apellido? apellido : actualizarPro.apellido;
-      actualizarPro.correo = correo? correo : actualizarPro.correo;
-      actualizarPro.contrasenia = contrasenia? contrasenia : actualizarPro.contrasenia;
+    if (actualizarPro) {
+      actualizarPro.nombre = nombre ? nombre : actualizarPro.nombre;
+      actualizarPro.apellido = apellido ? apellido : actualizarPro.apellido;
+      actualizarPro.correo = correo ? correo : actualizarPro.correo;
+      actualizarPro.contrasenia = contrasenia ? contrasenia : actualizarPro.contrasenia;
 
-      this.profesorService.actualizar(actualizarPro).subscribe( resp => {
-        if( resp.success){
+      this.profesorService.actualizar(actualizarPro).subscribe(resp => {
+        if (resp.success) {
           this.toastrService.success(resp.message, 'Proceso exitoso');
           this.cargando = false;
           this.modalService.dismissAll('Save click');
@@ -155,17 +167,17 @@ export class ProfesorComponent implements OnInit {
         this.toastrService.error(error.message, 'Proceso fallido');
         this.cargando = false;
       });
-    }else{
+    } else {
       this.toastrService.error('El profesor que intenta actualizar no existe', 'Proceso fallido');
       this.cargando = false;
-    }    
+    }
   }
 
-  eliminarProfesor(){
+  eliminarProfesor() {
     this.cargando = true;
 
-    this.profesorService.eliminar(this.profesorEliminar).subscribe( resp => {
-      if(resp.success){
+    this.profesorService.eliminar(this.profesorEliminar).subscribe(resp => {
+      if (resp.success) {
         this.toastrService.success(resp.message, 'Proceso exitoso');
         this.cargando = false;
         this.modalService.dismissAll('Save click');
@@ -181,7 +193,8 @@ export class ProfesorComponent implements OnInit {
     });
   }
 
-  seleccionarEditar(profesor: Profesor, contentEdit?: any){
+  seleccionarEditar(profesor: Profesor, contentEdit?: any) {
+
     const profSelec = profesor;
 
     this.editarForm.get('idusuario')?.disable();
@@ -191,11 +204,13 @@ export class ProfesorComponent implements OnInit {
     this.editarForm.get('apellido')?.setValue(profSelec.apellido);
     this.editarForm.get('correo')?.setValue(profSelec.correo);
     this.editarForm.get('contrasenia')?.setValue(profSelec.contrasenia);
+    this.editarForm.get('asignaturas')?.setValue('');
+    this.editarForm.get('asignaturasAdd')?.setValue('');
 
     this.open(contentEdit);
   }
 
-  seleccionarEliminar(profesor: Profesor, contentEliminar?: any){
+  seleccionarEliminar(profesor: Profesor, contentEliminar?: any) {
     this.profesorEliminar.idusuario = profesor.idusuario;
     this.profesorEliminar.nombre = profesor.nombre;
     this.profesorEliminar.apellido = profesor.apellido;
@@ -203,6 +218,94 @@ export class ProfesorComponent implements OnInit {
     this.profesorEliminar.contrasenia = profesor.contrasenia;
 
     this.open(contentEliminar);
+  }
+
+  agregarAsignatura() {
+    const i = this.agregarForm.controls['asignaturas'].value;
+
+    if (i === '' || i === null) {
+      this.toastrService.warning('Debe seleccionar una asignatura', 'Proceso fallido');
+    } else {
+
+      const index = i ? parseInt(i) : -1;
+      const asignaturaAdd = this.listaAsignaturas[index];
+
+      const verificar = this.listaAsignaturasAgregar.find((asigR: Asignatura) =>
+        asigR.idasignatura == asignaturaAdd.idasignatura);
+
+      if (verificar == null) {
+        this.listaAsignaturasAgregar.push(asignaturaAdd);
+        this.toastrService.info('La asignatura se encuentra en la lista para ser guardada', 'Proceso pendiente');
+      } else {
+        this.toastrService.warning('La asignatura ya ha sido agregada', 'Proceso fallido');
+      }
+    }
+  }
+
+  quitarAsignatura() {
+    const i = this.agregarForm.controls['asignaturasAdd'].value;
+
+    if (i === '' || i === null) {
+      this.toastrService.warning('Debe seleccionar una asignatura', 'Proceso fallido');
+    } else {
+
+      const index = i ? parseInt(i) : -1;
+      const asignaturaRevome = this.listaAsignaturasAgregar[index];
+
+      const indice = this.listaAsignaturasAgregar.indexOf(asignaturaRevome);
+      this.listaAsignaturasAgregar.splice(indice, 1);
+
+      this.toastrService.warning('La asignatura ya no se agregara al profesor', 'Proceso fallido');
+    }
+  }
+
+  agregarAsignaturaE() {
+    const i = this.editarForm.controls['asignaturas'].value;
+
+    if (i === '' || i === null) {
+      this.toastrService.warning('Debe seleccionar una asignatura', 'Proceso fallido');
+    } else {
+
+      const index = i ? parseInt(i) : -1;
+      const asignaturaAdd = this.listaAsignaturas[index];
+
+      const verificar = this.listaAsignaturasAgregar.find((asigR: Asignatura) =>
+        asigR.idasignatura == asignaturaAdd.idasignatura);
+
+      if (verificar == null) {
+        this.listaAsignaturasAgregar.push(asignaturaAdd);
+        this.toastrService.info('La asignatura se encuentra en la lista para ser guardada', 'Proceso pendiente');
+      } else {
+        this.toastrService.warning('La asignatura ya ha sido agregada', 'Proceso fallido');
+      }
+    }
+  }
+
+  quitarAsignaturaE() {
+    const i = this.editarForm.controls['asignaturasAdd'].value;
+
+    if (i === '' || i === null) {
+      this.toastrService.warning('Debe seleccionar una asignatura', 'Proceso fallido');
+    } else {
+
+      const index = i ? parseInt(i) : -1;
+      const asignaturaRevome = this.listaAsignaturasAgregar[index];
+
+      const indice = this.listaAsignaturasAgregar.indexOf(asignaturaRevome);
+      this.listaAsignaturasAgregar.splice(indice, 1);
+
+      this.toastrService.warning('La asignatura ya no se agregara al profesor', 'Proceso fallido');
+    }
+  }
+
+
+  listarCombox() {
+    this.agregarForm.get('asignaturas')?.setValue('');
+    this.asignaturaService.filtrar(null, this.pagina, this.cantPagina).subscribe(resp => {
+      this.listaAsignaturas = resp.data.content;
+    }, error => {
+      this.toastrService.error(error.message, 'Proceso fallido');
+    });
   }
 
   /** limpiar form */
@@ -231,7 +334,7 @@ export class ProfesorComponent implements OnInit {
     this.modalService.dismissAll('Close click');
   }
 
-  resetearEliminarForm(){
+  resetearEliminarForm() {
     this.profesorEliminar = new Profesor();
     this.modalService.dismissAll('Close click');
   }

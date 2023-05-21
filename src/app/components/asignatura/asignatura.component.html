@@ -1,0 +1,192 @@
+<div class="contenedor">
+
+    <ngx-loading [show]="cargando"
+        [config]="{ backdropBorderRadius: '3px', primaryColour: '#00ff66', secondaryColour: '#ff6600', tertiaryColour: '#6600ff', fullScreenBackdrop: true }">
+    </ngx-loading>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Busqueda Avanzada</h5>
+        </div>
+        <div class="card-body">
+            <form class="form-group" [formGroup]="filtrarForm" class="was-validated">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" formControlName="nombre" [pattern]="regNombre"
+                            placeholder="Ingrese el nombre a buscar">
+                        <div class="invalid-feedback">Por favor verifique el nombre</div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-s-12 col-lg-12">
+                        <button class="btn btn-primary" (click)="filtrar()" [disabled]="!filtrarForm.valid"><em
+                                class="fa-solid fa-magnifying-glass"></em> Buscar</button>
+                        &nbsp;
+                        <button class="btn btn-secondary" (click)="limpiar()"><em class="fa-solid fa-eraser"></em>
+                            Limpiar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla del listado -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="card-title">Lista de asignaturas</h5>
+                </div>
+                <div class="col-8">
+                    <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;">
+                        <em class="fa-solid fa-person-circle-plus"></em>&nbsp;Agregar Asignatura</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover table-responsive" style="overflow-x: scroll;">
+                <caption>Lista de asignaturas</caption>
+                <thead class="thead-col">
+                    <tr>
+                        <th scope="col" style="max-width: 40px;" hidden>Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Funciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let asignatura of listaAsignatura">
+                        <td>{{ asignatura.nombre }}</td>
+                        <td>
+                            <button type="button" class="btn btn-edit"
+                                (click)="seleccionarEditar(asignatura, contentEdit)" style="width: fit-content;">
+                                <em class="far fa-edit"></em> Editar
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn-danger"
+                                (click)="seleccionarEliminar(asignatura, contentEliminar)" style="width: fit-content;">
+                                <em class="fas fa-trash-alt"></em> Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="listaAsignatura.length == 0">
+                        <td colspan="8">
+                            <p style="text-align: center; font-size: x-large; color: red;">
+                                {{"Lista vacia"}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" [class.disabled]="esPrimero">
+                                        <a class="page-link" (click)="rebobinar(true)">Primero</a>
+                                    </li>
+                                    <li class="page-item" [class.disabled]="esPrimero">
+                                        <a class="page-link" (click)="rebobinar()">Anterior</a>
+                                    </li>
+                                    <li class="page-item" *ngFor="let p of totalPaginas; let i = index"
+                                        [ngClass]="{'active': i === pagina}">
+                                        <a class="page-link" (click)="setearPagina(i)">{{ i + 1 }}</a>
+                                    </li>
+                                    <li class="page-item" [class.disabled]="esUltimo">
+                                        <a class="page-link" (click)="avanzar()">Siguiente</a>
+                                    </li>
+                                    <li class="page-item" [class.disabled]="esUltimo">
+                                        <a class="page-link" (click)="avanzar(true)">Ultimo</a>
+                                    </li>
+                                    &nbsp;&nbsp;
+                                    <li class="page-item">
+                                        <select class="custom-select" #cantidadP
+                                            (change)="setearCantida(cantidadP.value)">
+                                            <option value="5">{{ 5 }}</option>
+                                            <option selected value="10">{{ 10 }}</option>
+                                            <option value="15">{{ 15 }}</option>
+                                            <option value="20">{{ 20 }}</option>
+                                            <option value="25">{{ 25 }}</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal agregar -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h5 class="modal-tittle" id="modal-basic-tittle">Agregar Asignatura</h5>
+        </div>
+        <div class="modal-body">
+            <form class="form-group was-validated" [formGroup]="agregarForm" novalidate>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" formControlName="nombre" required [pattern]="regNombre">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el nombre</div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="agregarAsignatura()"
+                [disabled]="!agregarForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearAgregarForm()">
+                <em class="fa-solid fa-ban"></em> Cancelar</button>
+        </div>
+    </ng-template>
+
+    <!-- Modal editar -->
+    <ng-template #contentEdit let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h5 class="modal-tittle" id="modal-basic-tittle">Editar Asignatura</h5>
+        </div>
+        <div class="modal-body">
+            <form class="form-group was-validated" [formGroup]="editarForm" novalidate>
+                <div class="row" hidden>
+                    <div class="col-12">
+                        <label>Id Asignatura:</label>
+                        <input type="text" class="form-control" formControlName="idasignatura">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" formControlName="nombre" required [pattern]="regNombre">
+                        <div class="invalid-feedback">Por favor ingrese o verifique el nombre</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="editarAsignatura()"
+                [disabled]="!editarForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearEditarForm()">
+                <em class="fa-solid fa-ban"></em> Cancelar</button>
+        </div>
+    </ng-template>
+
+    <!-- Modal de Confirmación eliminar -->
+    <ng-template #contentEliminar letc="close" let-d="dismiss">
+        <div class="modal-header">
+            <h5 class="modal-tittle" id="modal-basi-tittle">Eliminar Asignatura</h5>
+        </div>
+        <div class="modal-body">
+            <h6>¿Está seguro que desea eliminar la asignatura?</h6><br />
+            <h6>Se eliminará el siguiente asignatura:<br />
+                Nombre: {{ asignaturaEliminar.nombre }}<br></h6>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="eliminarAsignatura()"><em
+                    class="fa-regular fa-circle-check"></em> Confirmar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearEliminarForm()"><em
+                    class="fa-solid fa-ban"></em>
+                Cancelar</button>
+        </div>
+    </ng-template>
+</div>
