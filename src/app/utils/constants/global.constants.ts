@@ -22,6 +22,7 @@ export class GlobalConstant {
     //Nota
     public static URL_NOTA = '/nota';
     public static URL_NOTA_FILTRO = '/nota/filtrar';
+    public static URL_NOTA_VERIFICAR = '/nota/verificar';
 
     //Asignatura
     public static URL_ASIGNATURA = '/asignatura';

@@ -152,7 +152,7 @@
                         <select class="form-control" formControlName="estudiantes">
                             <option selected value=''>{{ listaEstudiantes.length == 0 ? 'No hay estudiantes' :
                                 'Seleccione un estudiante' }}</option>
-                            <option *ngFor="let estudiante of listaEstudiantes" value="{{ estudiante.idusuario }}">{{estudiante.nombre }} {{ estudiante.apellido}}</option>
+                            <option *ngFor="let estudiante of listaEstudiantes; let i = index" value="{{ i }}">{{estudiante.nombre }} {{ estudiante.apellido}}</option>
                         </select>
                         <div class="invalid-feedback">Por favor ingrese o verifique el estudiante</div>
                     </div>
@@ -163,7 +163,7 @@
                         <select class="form-control" formControlName="asignaturas">
                             <option selected value=''>{{ listaAsignaturas.length == 0 ? 'No hay asignaturas' :
                                 'Seleccione un asignatura' }}</option>
-                            <option *ngFor="let asignatura of listaAsignaturas" value="{{ asignatura.idasignatura }}">{{ asignatura.nombre }}</option>
+                            <option *ngFor="let asignatura of listaAsignaturas; let i = index" value="{{ i }}">{{ asignatura.nombre }}</option>
                         </select>
                         <div class="invalid-feedback">Por favor ingrese o verifique el asignatura</div>
                     </div>

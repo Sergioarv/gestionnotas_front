@@ -197,6 +197,8 @@ export class ProfesorComponent implements OnInit {
 
     const profSelec = profesor;
 
+    this.listaAsignaturasAgregar = profesor.asignaturas;
+
     this.editarForm.get('idusuario')?.disable();
 
     this.editarForm.get('idusuario')?.setValue(profSelec.idusuario);

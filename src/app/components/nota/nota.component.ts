@@ -111,23 +111,38 @@ export class NotaComponent implements OnInit {
     const asignatura = this.agregarNotaForm.controls['asignaturas'].value;
     const calificacion = this.agregarNotaForm.controls['calificacion'].value;
 
+    const indexAsig: any = asignatura? asignatura : '-1';
+    const indexEst: any = estudiante? estudiante : '-1';
+
     if (estudiante != '' && asignatura != '') {
+
       nuevaNota.idnota = '-1';
       nuevaNota.calificacion = calificacion ? parseFloat(calificacion) : 0;
-      nuevaNota.asignatura.idasignatura = asignatura ? asignatura : '';
-      nuevaNota.estudiante.idusuario = estudiante ? estudiante : '';
+      nuevaNota.asignatura = this.listaAsignaturas[indexAsig];
+      nuevaNota.estudiante = this.listaEstudiantes[indexEst];
 
-      this.notaService.agregar(nuevaNota).subscribe(resp => {
-        if (resp.success) {
-          this.toastrService.success(resp.message, 'Proceso exitoso');
-          this.cargando = false;
-          this.modalService.dismissAll('Save click');
-          this.resetearAgregarNotaForm();
-          this.filtrar();
-        } else {
-          this.toastrService.error(resp.message, 'Proceso fallido');
-          this.cargando = false;
-        }
+      const verfi = this.notaService.verificarNota(
+        nuevaNota.estudiante.idusuario,nuevaNota.asignatura.idasignatura).subscribe( resp => {
+          if(resp.success){
+            this.notaService.agregar(nuevaNota).subscribe(resp => {
+              if (resp.success) {
+                this.toastrService.success(resp.message, 'Proceso exitoso');
+                this.cargando = false;
+                this.modalService.dismissAll('Save click');
+                this.resetearAgregarNotaForm();
+                this.filtrar();
+              } else {
+                this.toastrService.error(resp.message, 'Proceso fallido');
+                this.cargando = false;
+              }
+            }, error => {
+              this.toastrService.error(error.message, 'Proceso fallido');
+              this.cargando = false;
+            });
+          } else {
+            this.toastrService.error(resp.message, 'Proceso fallido');
+            this.cargando = false;
+          }
       }, error => {
         this.toastrService.error(error.message, 'Proceso fallido');
         this.cargando = false;
@@ -234,8 +249,8 @@ export class NotaComponent implements OnInit {
   }
 
   listarCombox() {
-    this.estudianteService.filtrar(null, null, this.pagina, this.cantPagina).subscribe(resp => {
-      this.listaEstudiantes = resp.data.content;
+    this.estudianteService.listar().subscribe(resp => {
+      this.listaEstudiantes = resp.data;
     }, error => {
       this.toastrService.error(error.message, 'Proceso fallido');
     });

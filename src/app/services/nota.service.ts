@@ -12,6 +12,31 @@ export class NotaService {
     private http: HttpClient
   ) { }
 
+  verificarNota(idusuario: any, idasignatura:any): Observable<any> {
+
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_NOTA_VERIFICAR;
+
+    let params = '';
+
+    if (idusuario) {
+      if (params.length > 0) {
+        params = params.concat('&idusuario=').concat(idusuario);
+      } else {
+        params = params.concat('?idusuario=').concat(idusuario);
+      }
+    }
+
+    if (idasignatura) {
+      if (params.length > 0) {
+        params = params.concat('&idasignatura=').concat(idasignatura);
+      } else {
+        params = params.concat('?idasignatura=').concat(idasignatura);
+      }
+    }
+
+    return this.http.get<any>(URL + params);
+  }
+
   public filtrar(nombre: any, apellido: any, materia: any, pagina: any, cantPagina: any): Observable<any> {
     const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_NOTA_FILTRO;
 
