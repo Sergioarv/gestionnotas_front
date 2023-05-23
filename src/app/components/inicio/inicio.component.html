@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<div class="contenedor">
+    <div class="row">
+        <div class="col-sm-6 col-md-3 col-lg-3 ">
+            <div class="card" style="text-align: center;">
+                <a [routerLink]="['/profesor']">
+                    <div class="card-header">
+                        <img src="" alt="flaticon">
+                    </div>
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Gestionar Profesores</h5>
+                    <p class="card-text">Agregar, listar y modificar los profesores.</p>
+                    <a [routerLink]="['/profesor']" class="btn btn-primary"><em
+                            class="fa-solid fa-chalkboard-user"></em> Profesores</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 col-lg-3">
+            <div class="card" style="text-align: center;">
+                <a [routerLink]="['/estudiante']">
+                    <div class="card-header">
+                        <img src="" alt="flaticon">
+                    </div>
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Gestionar Estudiantes</h5>
+                    <p class="card-text">Agregar, listar y modificar los estudiantes.</p>
+                    <a [routerLink]="['/estudiante']" class="btn btn-primary"><em class="fa-solid fa-user"></em>
+                        Estudiantes</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 col-lg-3">
+            <div class="card" style="text-align: center;">
+                <a [routerLink]="['/nota']">
+                    <div class="card-header">
+                        <img src="" alt="flaticon">
+                    </div>
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Gestionar Notas</h5>
+                    <p class="card-text">Agregar, listar y modificar las notas.</p>
+                    <a [routerLink]="['/nota']" class="btn btn-primary"><em class="fa-solid fa-clipboard-question"></em>
+                        Notas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3 col-lg-3">
+            <div class="card" style="text-align: center;">
+                <a [routerLink]="['/asignatura']">
+                    <div class="card-header">
+                        <img src="" alt="flaticon">
+                    </div>
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Gestionar Asignaturas</h5>
+                    <p class="card-text">Crear, listar y modificar asignaturas.</p>
+                    <a [routerLink]="['/asignatura']" class="btn btn-primary"><em class="fa-solid fa-newspaper"></em>
+                        Asignaturas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,7 @@ import { ProfesorComponent } from './components/profesor/profesor.component';
 import { EstudianteComponent } from './components/estudiante/estudiante.component';
 import { AsignaturaComponent } from './components/asignatura/asignatura.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { InicioComponent } from './components/inicio/inicio.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ProfesorComponent,
     EstudianteComponent,
     AsignaturaComponent,
-    NavbarComponent
+    NavbarComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

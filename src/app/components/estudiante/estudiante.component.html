@@ -70,6 +70,11 @@
                         <td>{{ estudiante.correo }}</td>
                         <td>{{ estudiante.contrasenia }}</td>
                         <td>
+                            <button type="button" class="btn btn-info" [hidden]="estudiante.notas.length == 0"
+                                (click)="mostrarNotas(estudiante)" style="width: fit-content;">
+                                <em class="far fa-edit"></em> Ver notas
+                            </button>
+                            &nbsp;
                             <button type="button" class="btn btn-edit" 
                             (click)="seleccionarEditar(estudiante, contentEdit)" style="width: fit-content;">
                                 <em class="far fa-edit"></em> Editar

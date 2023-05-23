@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Estudiante } from 'src/app/models/estudiante';
@@ -57,7 +58,8 @@ export class EstudianteComponent implements OnInit {
     private toastrService: ToastrService,
     private modalService: NgbModal,
     config: NgbModalConfig,
-    private estudianteService: EstudianteService
+    private estudianteService: EstudianteService,
+    private route: Router
   ) {
     this.listaEstudiante = [];
     this.estudianteEliminar = new Estudiante();
@@ -205,6 +207,12 @@ export class EstudianteComponent implements OnInit {
     this.estudianteEliminar.contrasenia = estudiante.contrasenia;
 
     this.open(contentEliminar);
+  }
+
+  mostrarNotas(estudiante: any){
+    localStorage.setItem('nombre', estudiante.nombre);
+    localStorage.setItem('apellido', estudiante.apellido);
+    this.route.navigate(['/nota']);
   }
 
   /** limpiar form */

@@ -73,7 +73,6 @@ export class NotaComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarCombox();
-    this.filtrar();
   }
 
   filtrar() {
@@ -260,6 +259,26 @@ export class NotaComponent implements OnInit {
     }, error => {
       this.toastrService.error(error.message, 'Proceso fallido');
     });
+
+    this.verificarEstudiante();
+
+  }
+
+  verificarEstudiante(){
+    this.cargando = true;
+    const nombre = localStorage.getItem('nombre');
+    const apellido = localStorage.getItem('apellido');
+
+    if (nombre !== null && apellido !== null) {
+      this.notaService.filtrar(nombre, apellido, null, this.pagina, this.cantPagina).subscribe(resp => {
+        this.listaNota = resp.data.content;
+        localStorage.removeItem('nombre');
+        localStorage.removeItem('apellido');
+        this.cargando = false;
+      });
+    } else{
+      this.filtrar();
+    }
   }
 
   limpiar() {

@@ -70,7 +70,7 @@
                         <td>{{ profesor.correo }}</td>
                         <td style="width: 25%;">{{ profesor.contrasenia }}</td>
                         <td style="width: 25%;">
-                            <button type="button" class="btn btn-info" [hidden]="!profesor.asignaturas"
+                            <button type="button" class="btn btn-info" [hidden]="profesor.asignaturas.length == 0"
                                 (click)="mostrarAsignaturas(profesor, contentAsignaturas)" style="width: fit-content;">
                                 <em class="far fa-edit"></em> Ver asignaturas
                             </button>
