@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfesorComponent } from './components/profesor/profesor.component';
 import { EstudianteComponent } from './components/estudiante/estudiante.component';
 import { AsignaturaComponent } from './components/asignatura/asignatura.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AsignaturaComponent } from './components/asignatura/asignatura.componen
     NotaComponent,
     ProfesorComponent,
     EstudianteComponent,
-    AsignaturaComponent
+    AsignaturaComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

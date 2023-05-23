@@ -185,19 +185,20 @@ export class AsignaturaComponent implements OnInit {
 
   resetearAgregarForm() {
     this.agregarForm.get('nombre')?.setValue('');
-
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 
   resetearEditarForm() {
     this.editarForm.get('idasignatura')?.setValue('');
     this.editarForm.get('nombre')?.setValue('');
-
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 
   resetearEliminarForm() {
     this.asignaturaEliminar = new Asignatura();
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 

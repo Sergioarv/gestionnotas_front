@@ -28,6 +28,7 @@ export class ProfesorComponent implements OnInit {
   listaAsignaturasAgregar: Asignatura[];
   listaProfesor: Profesor[];
   profesorEliminar: Profesor;
+  asignaturasProfesorV: string;
 
   /** variables paginación */
   esPrimero = false;
@@ -71,6 +72,7 @@ export class ProfesorComponent implements OnInit {
     this.profesorEliminar = new Profesor();
     this.listaAsignaturas = [];
     this.listaAsignaturasAgregar = [];
+    this.asignaturasProfesorV = "";
   }
 
   ngOnInit(): void {
@@ -117,6 +119,7 @@ export class ProfesorComponent implements OnInit {
     nuevoProf.apellido = apellido ? apellido : '';
     nuevoProf.correo = correo ? correo : '';
     nuevoProf.contrasenia = contrasenia ? contrasenia : '';
+    nuevoProf.asignaturas = this.listaAsignaturasAgregar;
 
     this.profesorService.agregar(nuevoProf).subscribe(resp => {
       if (resp.success) {
@@ -151,6 +154,7 @@ export class ProfesorComponent implements OnInit {
       actualizarPro.apellido = apellido ? apellido : actualizarPro.apellido;
       actualizarPro.correo = correo ? correo : actualizarPro.correo;
       actualizarPro.contrasenia = contrasenia ? contrasenia : actualizarPro.contrasenia;
+      actualizarPro.asignaturas = this.listaAsignaturasAgregar;
 
       this.profesorService.actualizar(actualizarPro).subscribe(resp => {
         if (resp.success) {
@@ -220,6 +224,14 @@ export class ProfesorComponent implements OnInit {
     this.profesorEliminar.contrasenia = profesor.contrasenia;
 
     this.open(contentEliminar);
+  }
+
+  mostrarAsignaturas(profesor: Profesor, contentAsignaturas: any){
+    profesor.asignaturas.forEach( (asiR: Asignatura) => {
+      this.asignaturasProfesorV += asiR.nombre + ",\t\t";
+    });
+
+    this.open(contentAsignaturas);
   }
 
   agregarAsignatura() {
@@ -322,6 +334,9 @@ export class ProfesorComponent implements OnInit {
     this.agregarForm.get('apellido')?.setValue('');
     this.agregarForm.get('correo')?.setValue('');
     this.agregarForm.get('contrasenia')?.setValue('');
+    this.agregarForm.get('asignaturas')?.setValue('');
+    this.agregarForm.get('asignaturasAdd')?.setValue('');
+    this.listaAsignaturasAgregar = [];
 
     this.modalService.dismissAll('Close click');
   }
@@ -332,12 +347,20 @@ export class ProfesorComponent implements OnInit {
     this.editarForm.get('apellido')?.setValue('');
     this.editarForm.get('correo')?.setValue('');
     this.editarForm.get('contrasenia')?.setValue('');
+    this.editarForm.get('asignaturas')?.setValue('');
+    this.editarForm.get('asignaturasAdd')?.setValue('');
+    this.listaAsignaturasAgregar = [];
 
     this.modalService.dismissAll('Close click');
   }
 
   resetearEliminarForm() {
     this.profesorEliminar = new Profesor();
+    this.modalService.dismissAll('Close click');
+  }
+
+  resetearAsignaturasV(){
+    this.asignaturasProfesorV = "";
     this.modalService.dismissAll('Close click');
   }
 

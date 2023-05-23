@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="contenedor">
 
     <ngx-loading [show]="cargando"
@@ -149,7 +150,7 @@
                 <div class="row">
                     <div class="col-12">
                         <label>Estudiante:</label>
-                        <select class="form-control" formControlName="estudiantes">
+                        <select class="form-control" formControlName="estudiantes" required>
                             <option selected value=''>{{ listaEstudiantes.length == 0 ? 'No hay estudiantes' :
                                 'Seleccione un estudiante' }}</option>
                             <option *ngFor="let estudiante of listaEstudiantes; let i = index" value="{{ i }}">{{estudiante.nombre }} {{ estudiante.apellido}}</option>
@@ -160,7 +161,7 @@
                 <div class="row">
                     <div class="col-12">
                         <label>Asignatura:</label>
-                        <select class="form-control" formControlName="asignaturas">
+                        <select class="form-control" formControlName="asignaturas" required>
                             <option selected value=''>{{ listaAsignaturas.length == 0 ? 'No hay asignaturas' :
                                 'Seleccione un asignatura' }}</option>
                             <option *ngFor="let asignatura of listaAsignaturas; let i = index" value="{{ i }}">{{ asignatura.nombre }}</option>
