@@ -2,39 +2,42 @@
     <div class="nav" style="margin: 3px;">
         <ul class="nav nav-pills" role="tablist">
             <li class="nav-item" role="presntation">
-                <a class="nav-link logo" [routerLink]="['/']"><em class="far fa-paper-plane">
-                    </em> &nbsp;Gestion de notas</a>
+                <a class="nav-link logo" [routerLink]="['/']">
+                    <fa-icon [icon]="faSchool"></fa-icon> &nbsp;Gestion de notas</a>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}">
-                <button class="btn btn-primary" [routerLink]="['/inicio']">Inicio</button>
+                <button class="btn btn-primary" [routerLink]="['/inicio']">
+                    <fa-icon [icon]="faHouse"></fa-icon> Inicio</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}">
                 <button class="btn btn-primary" [routerLink]="['/profesor']">
-                    <em class="fa-solid fa-chalkboard-user"></em> Profesores</button>
+                    <fa-icon [icon]="faPersonChalkboard"></fa-icon> Profesores</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}">
                 <button class="btn btn-primary" [routerLink]="['/estudiante']">
-                    <em class="fa-solid fa-user"></em> Estudiantes</button>
+                    <fa-icon [icon]="faGraduationCap"></fa-icon> Estudiantes</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}">
                 <button class="btn btn-primary" [routerLink]="['/nota']">
-                    <em class="fa-solid fa-newspaper"></em> Notas</button>
+                    <fa-icon [icon]="faNoteSticky"></fa-icon> Notas</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}">
                 <button class="btn btn-primary" [routerLink]="['/asignatura']">
-                    <em class="fa-solid fa-clipboard-question"></em> Asignaturas</button>
+                    <fa-icon [icon]="faBook"></fa-icon> Asignaturas</button>
             </li>
         </ul>
     </div>
     <div>
         <button class="btn btn-primary" [routerLink]="['/login']" [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{exact:true}">Iniciar Sesión</button>
+            [routerLinkActiveOptions]="{exact:true}">
+            <fa-icon [icon]="faUserCheck"></fa-icon> Iniciar Sesión</button>
         <button class="btn btn-primary-sesion" [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{exact:true}" (click)="onLogOut()">Cerrar Sesión</button>
+        [routerLinkActiveOptions]="{exact:true}" (click)="onLogOut()">
+        Cerrar Sesión <fa-icon [icon]="faPerson"></fa-icon></button>
     </div>
 </nav>

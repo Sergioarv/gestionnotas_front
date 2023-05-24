@@ -8,12 +8,25 @@ import { AsignaturaService } from 'src/app/services/asignatura.service';
 import { ProfesorService } from 'src/app/services/profesor.service';
 import { GlobalConstant } from 'src/app/utils/constants/global.constants';
 
+import { faUserPlus, faPlus, faMagnifyingGlass, faEraser, faEye, faPenToSquare, faBan, faSave, faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-profesor',
   templateUrl: './profesor.component.html',
   styleUrls: ['./profesor.component.css']
 })
 export class ProfesorComponent implements OnInit {
+
+  faUserPlus = faUserPlus;
+  faPlus = faPlus;
+  faMagnifyingGlass = faMagnifyingGlass;
+  faEraser = faEraser;
+  faEye = faEye;
+  faPenToSquare = faPenToSquare;
+  faBan = faBan;
+  faSave = faSave;
+  faCircleCheck  = faCircleCheck; 
+  faTrashCan = faTrashCan;
 
   regNombre = GlobalConstant.REG_NOMBRE;
   regNumeros = GlobalConstant.REG_NUMEROS;

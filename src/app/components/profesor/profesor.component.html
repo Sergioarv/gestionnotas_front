@@ -28,11 +28,11 @@
                 <br>
                 <div class="row">
                     <div class="col-s-12 col-lg-6">
-                        <button class="btn btn-primary" (click)="filtrar()" [disabled]="!filtrarForm.valid"><em
-                                class="fa-solid fa-magnifying-glass"></em> Buscar</button>
+                        <button class="btn btn-primary" (click)="filtrar()" [disabled]="!filtrarForm.valid">
+                            <fa-icon [icon]="faMagnifyingGlass"></fa-icon> Buscar</button>
                         &nbsp;
-                        <button class="btn btn-secondary" (click)="limpiar()"><em class="fa-solid fa-eraser"></em>
-                            Limpiar</button>
+                        <button class="btn btn-secondary" (click)="limpiar()">
+                            <fa-icon [icon]="faEraser"></fa-icon> Limpiar</button>
                     </div>
                 </div>
             </form>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-8">
                     <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;">
-                        <em class="fa-solid fa-person-circle-plus"></em>&nbsp;Agregar Profesor</button>
+                        <fa-icon [icon]="faUserPlus"></fa-icon> &nbsp;Agregar Profesor</button>
                 </div>
             </div>
         </div>
@@ -68,21 +68,21 @@
                     <tr *ngFor="let profesor of listaProfesor">
                         <td>{{ profesor.nombre }} {{ profesor.apellido}}</td>
                         <td>{{ profesor.correo }}</td>
-                        <td style="width: 25%;">{{ profesor.contrasenia }}</td>
-                        <td style="width: 25%;">
+                        <td>{{ profesor.contrasenia }}</td>
+                        <td>
                             <button type="button" class="btn btn-info" [hidden]="profesor.asignaturas.length == 0"
                                 (click)="mostrarAsignaturas(profesor, contentAsignaturas)" style="width: fit-content;">
-                                <em class="far fa-edit"></em> Ver asignaturas
+                                <fa-icon [icon]="faEye"></fa-icon> Ver asignaturas
                             </button>
                             &nbsp;
                             <button type="button" class="btn btn-edit"
                                 (click)="seleccionarEditar(profesor, contentEdit)" style="width: fit-content;">
-                                <em class="far fa-edit"></em> Editar
+                                <fa-icon [icon]="faPenToSquare"></fa-icon> Editar
                             </button>
                             &nbsp;
                             <button type="button" class="btn btn-danger"
                                 (click)="seleccionarEliminar(profesor, contentEliminar)" style="width: fit-content;">
-                                <em class="fas fa-trash-alt"></em> Eliminar
+                                <fa-icon [icon]="faTrashCan"></fa-icon> Eliminar
                             </button>
                         </td>
                     </tr>
@@ -185,7 +185,7 @@
                         <label>&nbsp;</label><br>
                         <button type="button" class="btn btn-primary" style=" width: 10rem;"
                             (click)="agregarAsignatura()" [disabled]="agregarForm.controls['asignaturas'].value == ''">
-                            <em class="fa-solid fa-plus"></em> Agregar</button>
+                            <fa-icon [icon]="faPlus"></fa-icon> Agregar</button>
                     </div>
                 </div>
                 <div class="row">
@@ -205,16 +205,16 @@
                         <label>&nbsp;</label><br>
                         <button type="button" class="btn btn-danger" style=" width: 10rem;" (click)="quitarAsignatura()"
                             [disabled]="agregarForm.controls['asignaturasAdd'].value == ''">
-                            <em class="fa-solid fa-plus"></em> Quitar</button>
+                            <fa-icon [icon]="faTrashCan"></fa-icon> Quitar</button>
                     </div>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-success" (click)="agregarProfesor()"
-                [disabled]="!agregarForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+                [disabled]="!agregarForm.valid"><fa-icon [icon]="faSave"></fa-icon> Guardar</button>
             <button type="button" class="btn btn-danger" (click)="resetearAgregarForm()">
-                <em class="fa-solid fa-ban"></em> Cancelar</button>
+                <fa-icon [icon]="faBan"></fa-icon> Cancelar</button>
         </div>
     </ng-template>
 
@@ -277,7 +277,7 @@
                         <label>&nbsp;</label><br>
                         <button type="button" class="btn btn-primary" style=" width: 10rem;"
                             (click)="agregarAsignaturaE()" [disabled]="editarForm.controls['asignaturas'].value == ''">
-                            <em class="fa-solid fa-plus"></em> Agregar</button>
+                            <fa-icon [icon]="faPlus"></fa-icon> Agregar</button>
                     </div>
                 </div>
                 <div class="row">
@@ -298,16 +298,16 @@
                         <button type="button" class="btn btn-danger" style=" width: 10rem;"
                             (click)="quitarAsignaturaE()"
                             [disabled]="editarForm.controls['asignaturasAdd'].value == ''">
-                            <em class="fa-solid fa-plus"></em> Quitar</button>
+                            <fa-icon [icon]="faTrashCan"></fa-icon> Quitar</button>
                     </div>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="editarProfesor()" [disabled]="!editarForm.valid"><em
-                    class="fa-regular fa-floppy-disk"></em> Guardar</button>
+            <button type="button" class="btn btn-success" (click)="editarProfesor()" [disabled]="!editarForm.valid">
+                <fa-icon [icon]="faSave"></fa-icon> Guardar</button>
             <button type="button" class="btn btn-danger" (click)="resetearEditarForm()">
-                <em class="fa-solid fa-ban"></em> Cancelar</button>
+                <fa-icon [icon]="faBan"></fa-icon> Cancelar</button>
         </div>
     </ng-template>
 
@@ -323,11 +323,10 @@
                 Correo: {{ profesorEliminar.correo }}</h6>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="eliminarProfesor()"><em
-                    class="fa-regular fa-circle-check"></em> Confirmar</button>
-            <button type="button" class="btn btn-danger" (click)="resetearEliminarForm()"><em
-                    class="fa-solid fa-ban"></em>
-                Cancelar</button>
+            <button type="button" class="btn btn-success" (click)="eliminarProfesor()">
+                <fa-icon [icon]="faCircleCheck"></fa-icon> Confirmar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearEliminarForm()">
+                <fa-icon [icon]="faBan"></fa-icon> Cancelar</button>
         </div>
     </ng-template>
 
@@ -341,11 +340,10 @@
             <h6>{{ asignaturasProfesorV }}</h6>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="resetearAsignaturasV()"><em
-                    class="fa-regular fa-circle-check"></em> Confirmar</button>
-            <button type="button" class="btn btn-danger" (click)="resetearAsignaturasV()"><em
-                    class="fa-solid fa-ban"></em>
-                Cancelar</button>
+            <button type="button" class="btn btn-success" (click)="resetearAsignaturasV()">
+                <fa-icon [icon]="faCircleCheck"></fa-icon> Confirmar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearAsignaturasV()">
+                <fa-icon [icon]="faBan"></fa-icon> Cancelar</button>
         </div>
     </ng-template>
 </div>

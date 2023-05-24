@@ -17,6 +17,7 @@ import { EstudianteComponent } from './components/estudiante/estudiante.componen
 import { AsignaturaComponent } from './components/asignatura/asignatura.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
       countDuplicates:true,
       preventDuplicates: true,
       resetTimeoutOnDuplicate: true
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

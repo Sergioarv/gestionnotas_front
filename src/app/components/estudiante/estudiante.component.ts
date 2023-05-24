@@ -7,12 +7,25 @@ import { Estudiante } from 'src/app/models/estudiante';
 import { EstudianteService } from 'src/app/services/estudiante.service';
 import { GlobalConstant } from 'src/app/utils/constants/global.constants';
 
+import { faUserPlus, faPlus, faMagnifyingGlass, faEraser, faEye, faPenToSquare, faBan, faSave, faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-estudiante',
   templateUrl: './estudiante.component.html',
   styleUrls: ['./estudiante.component.css']
 })
 export class EstudianteComponent implements OnInit {
+
+  faUserPlus = faUserPlus;
+  faPlus = faPlus;
+  faMagnifyingGlass = faMagnifyingGlass;
+  faEraser = faEraser;
+  faEye = faEye;
+  faPenToSquare = faPenToSquare;
+  faBan = faBan;
+  faSave = faSave;
+  faCircleCheck = faCircleCheck;
+  faTrashCan = faTrashCan;
 
   regNombre = GlobalConstant.REG_NOMBRE;
   regNumeros = GlobalConstant.REG_NUMEROS;
@@ -209,7 +222,7 @@ export class EstudianteComponent implements OnInit {
     this.open(contentEliminar);
   }
 
-  mostrarNotas(estudiante: any){
+  mostrarNotas(estudiante: any) {
     localStorage.setItem('nombre', estudiante.nombre);
     localStorage.setItem('apellido', estudiante.apellido);
     this.route.navigate(['/nota']);

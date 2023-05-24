@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Asignatura } from 'src/app/models/asignatura';
 import { AsignaturaService } from 'src/app/services/asignatura.service';
 import { GlobalConstant } from 'src/app/utils/constants/global.constants';
+import { faUserPlus, faPlus, faMagnifyingGlass, faEraser, faEye, faPenToSquare, faBan, faSave, faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-asignatura',
@@ -12,6 +13,17 @@ import { GlobalConstant } from 'src/app/utils/constants/global.constants';
   styleUrls: ['./asignatura.component.css']
 })
 export class AsignaturaComponent implements OnInit {
+
+  faUserPlus = faUserPlus;
+  faPlus = faPlus;
+  faMagnifyingGlass = faMagnifyingGlass;
+  faEraser = faEraser;
+  faEye = faEye;
+  faPenToSquare = faPenToSquare;
+  faBan = faBan;
+  faSave = faSave;
+  faCircleCheck = faCircleCheck;
+  faTrashCan = faTrashCan;
 
   regNombre = GlobalConstant.REG_NOMBRE;
 

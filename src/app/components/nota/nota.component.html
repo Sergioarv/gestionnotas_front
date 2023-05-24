@@ -34,11 +34,11 @@
                 <br>
                 <div class="row">
                     <div class="col-s-12 col-lg-6">
-                        <button class="btn btn-primary" (click)="filtrar()" [disabled]="!filtrarForm.valid"><em
-                                class="fa-solid fa-magnifying-glass"></em> Buscar</button>
+                        <button class="btn btn-primary" (click)="filtrar()" [disabled]="!filtrarForm.valid">
+                            <fa-icon [icon]="faMagnifyingGlass"></fa-icon> Buscar</button>
                         &nbsp;
-                        <button class="btn btn-secondary" (click)="limpiar()"><em class="fa-solid fa-eraser"></em>
-                            Limpiar</button>
+                        <button class="btn btn-secondary" (click)="limpiar()">
+                            <fa-icon [icon]="faEraser"></fa-icon> Limpiar</button>
                     </div>
                 </div>
             </form>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-8">
                     <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;">
-                        <em class="fa-solid fa-person-circle-plus"></em>&nbsp;Agregar Nota</button>
+                        <fa-icon [icon]="faPlus"></fa-icon>&nbsp;Agregar Nota</button>
                 </div>
             </div>
         </div>
@@ -78,12 +78,12 @@
                         <td>
                             <button type="button" class="btn btn-edit" 
                             (click)="seleccionarEditar(nota, contentEdit)" style="width: fit-content;">
-                                <em class="far fa-edit"></em> Editar
+                                <fa-icon [icon]="faPenToSquare"></fa-icon> Editar
                             </button>
                             &nbsp;
                             <button type="button" class="btn btn-danger" 
                             (click)="seleccionarEliminar(nota, contentEliminar)" style="width: fit-content;">
-                                <em class="fas fa-trash-alt"></em> Eliminar
+                                <fa-icon [icon]="faTrashCan"></fa-icon> Eliminar
                             </button>
                         </td>
                     </tr>
@@ -173,9 +173,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-success" (click)="agregarNota()"
-                [disabled]="!agregarNotaForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+                [disabled]="!agregarNotaForm.valid"><fa-icon [icon]="faSave"></fa-icon> Guardar</button>
             <button type="button" class="btn btn-danger" (click)="resetearAgregarNotaForm()">
-                <em class="fa-solid fa-ban"></em> Cancelar</button>
+                <fa-icon [icon]="faBan"></fa-icon> Cancelar</button>
         </div>
     </ng-template>
 
@@ -225,9 +225,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-success" (click)="editarNota()"
-                [disabled]="!editarNotaForm.valid"><em class="fa-regular fa-floppy-disk"></em> Guardar</button>
+                [disabled]="!editarNotaForm.valid"><fa-icon [icon]="faSave"></fa-icon> Guardar</button>
             <button type="button" class="btn btn-danger" (click)="resetearEditarNotaForm()">
-                <em class="fa-solid fa-ban"></em> Cancelar</button>
+                <fa-icon [icon]="faBan"></fa-icon> Cancelar</button>
         </div>
     </ng-template>
 
@@ -243,10 +243,10 @@
                 Asignatura: {{ notaEliminar.asignatura.nombre }}</h6>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="eliminarNota()"><em
-                    class="fa-regular fa-circle-check"></em> Confirmar</button>
-            <button type="button" class="btn btn-danger" (click)="resetearEliminarNotaForm()"><em class="fa-solid fa-ban"></em>
-                Cancelar</button>
+            <button type="button" class="btn btn-success" (click)="eliminarNota()">
+                <fa-icon [icon]="faCircleCheck"></fa-icon> Confirmar</button>
+            <button type="button" class="btn btn-danger" (click)="resetearEliminarNotaForm()">
+                <fa-icon [icon]="faBan"></fa-icon> Cancelar</button>
         </div>
     </ng-template>
 </div>

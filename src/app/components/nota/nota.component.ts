@@ -10,6 +10,7 @@ import { EstudianteService } from 'src/app/services/estudiante.service';
 import { NotaService } from 'src/app/services/nota.service';
 import { GlobalConstant } from 'src/app/utils/constants/global.constants';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { faUserPlus, faPlus, faMagnifyingGlass, faEraser, faEye, faPenToSquare, faBan, faSave, faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nota',
@@ -17,6 +18,18 @@ import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-
   styleUrls: ['./nota.component.css']
 })
 export class NotaComponent implements OnInit {
+
+  faUserPlus = faUserPlus;
+  faPlus = faPlus;
+  faMagnifyingGlass = faMagnifyingGlass;
+  faEraser = faEraser;
+  faEye = faEye;
+  faPenToSquare = faPenToSquare;
+  faBan = faBan;
+  faSave = faSave;
+  faCircleCheck = faCircleCheck;
+  faTrashCan = faTrashCan;
+
 
   regNombre = GlobalConstant.REG_NOMBRE;
   regNumeros = GlobalConstant.REG_NUMEROS;

@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'profesor', component: ProfesorComponent},
   { path: 'estudiante', component: EstudianteComponent},
   { path: 'asignatura', component: AsignaturaComponent},
-  { path: 'inicio', component: InicioComponent}
+  { path: 'inicio', component: InicioComponent},
+  { path: '', redirectTo: 'inicio', pathMatch: 'full'},
 ];
 
 @NgModule({
