@@ -54,13 +54,13 @@ export class ProfesorService {
   }
 
   public agregar(nuevoProfesor: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_PROFESOR;
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_AUTH + GlobalConstant.URL_PROFESOR;
 
     return this.http.post(URL, nuevoProfesor);
   }
 
   public actualizar(actualizarProfesor: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_PROFESOR;
+    const URL = GlobalConstant.URL_ENDPOINT +GlobalConstant.URL_AUTH + GlobalConstant.URL_PROFESOR;
 
     return this.http.put(URL, actualizarProfesor);
   }

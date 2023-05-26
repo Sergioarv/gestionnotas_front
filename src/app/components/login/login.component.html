@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<div class="contenedor" style="justify-content: center; text-align: center; display: flex;">
+
+    <!-- Animacion de carga -->
+    <ngx-loading [show]="cargando"
+        [config]="{ backdropBorderRadius: '3px', primaryColour: '#00ff66', secondaryColour: '#ff6600', tertiaryColour: '#6600ff', fullScreenBackdrop: true }">
+    </ngx-loading>
+
+    <div class="card" style="width: 100%; margin-right: 15px;">
+        <div class="card-header">
+            <h5>Inicio de Sesión</h5>
+        </div>
+        <div class="card-body">
+            <form class="form-group was-validated" [formGroup]="loginForm">
+                <div class="row">
+                    <div class="col-12">
+                        <label>Correo de Usuario</label>
+                        <input type="text" class="form-control" formControlName="correo" [pattern]="regCorreo">
+                        <div class="invalid-feedback">Por favor verifique el correo</div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row" style="justify-content: center;">
+                    <div class="col-12">
+                        <label>Contraseña de usuario</label>
+                        <input type="text" class="form-control" formControlName="contrasenia" [pattern]="regPassword">
+                        <div class="invalid-feedback">Por favor verifique la contraseña</div>
+                    </div>
+                </div>
+                &nbsp;
+                <div class="row" style="justify-content: center; text-align: center;">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-success" (click)="onLogin()" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

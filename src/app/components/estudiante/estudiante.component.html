@@ -47,7 +47,7 @@
                     <h5 class="card-title">Lista de estudiantes</h5>
                 </div>
                 <div class="col-8">
-                    <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;">
+                    <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;" [hidden]="authority !== 'admin'">
                         <fa-icon [icon]="faUserPlus"></fa-icon>&nbsp;Agregar Estudiante</button>
                 </div>
             </div>
@@ -75,12 +75,12 @@
                                 <fa-icon [icon]="faEye"></fa-icon> Ver notas
                             </button>
                             &nbsp;
-                            <button type="button" class="btn btn-edit" 
+                            <button type="button" class="btn btn-edit" [hidden]="authority !== 'admin'" 
                             (click)="seleccionarEditar(estudiante, contentEdit)" style="width: fit-content;">
                             <fa-icon [icon]="faPenToSquare"></fa-icon> Editar
                             </button>
                             &nbsp;
-                            <button type="button" class="btn btn-danger" 
+                            <button type="button" class="btn btn-danger" [hidden]="authority !== 'admin'" 
                             (click)="seleccionarEliminar(estudiante, contentEliminar)" style="width: fit-content;">
                             <fa-icon [icon]="faTrashCan"></fa-icon> Eliminar
                             </button>

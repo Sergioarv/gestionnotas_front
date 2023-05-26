@@ -60,13 +60,13 @@ export class EstudianteService {
   }
 
   public agregar(nuevoEstudiante: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_ESTUDIANTE;
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_AUTH + GlobalConstant.URL_ESTUDIANTE;
 
     return this.http.post(URL, nuevoEstudiante);
   }
 
   public actualizar(actualizarEstudiante: any): Observable<any> {
-    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_ESTUDIANTE;
+    const URL = GlobalConstant.URL_ENDPOINT + GlobalConstant.URL_AUTH + GlobalConstant.URL_ESTUDIANTE;
 
     return this.http.put(URL, actualizarEstudiante);
   }

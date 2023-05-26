@@ -193,6 +193,7 @@ export class AsignaturaComponent implements OnInit {
 
   limpiar() {
     this.filtrarForm.get('nombre')?.setValue('');
+    this.filtrar();
   }
 
   resetearAgregarForm() {

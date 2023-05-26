@@ -18,6 +18,8 @@ import { AsignaturaComponent } from './components/asignatura/asignatura.componen
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './components/login/login.component';
+import { interceptorProvider } from './interceptors/interceptor.service';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     EstudianteComponent,
     AsignaturaComponent,
     NavbarComponent,
-    InicioComponent
+    InicioComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     }),
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    interceptorProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,27 +6,27 @@
                     <fa-icon [icon]="faSchool"></fa-icon> &nbsp;Gestion de notas</a>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact:true}">
+                [routerLinkActiveOptions]="{exact:true}" *ngIf="isLogged">
                 <button class="btn btn-primary" [routerLink]="['/inicio']">
                     <fa-icon [icon]="faHouse"></fa-icon> Inicio</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact:true}">
+                [routerLinkActiveOptions]="{exact:true}" *ngIf="isLogged && authority === 'admin'">
                 <button class="btn btn-primary" [routerLink]="['/profesor']">
                     <fa-icon [icon]="faPersonChalkboard"></fa-icon> Profesores</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact:true}">
+                [routerLinkActiveOptions]="{exact:true}" *ngIf="isLogged && authority !== 'estudiante'">
                 <button class="btn btn-primary" [routerLink]="['/estudiante']">
                     <fa-icon [icon]="faGraduationCap"></fa-icon> Estudiantes</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact:true}">
+                [routerLinkActiveOptions]="{exact:true}" *ngIf="isLogged">
                 <button class="btn btn-primary" [routerLink]="['/nota']">
                     <fa-icon [icon]="faNoteSticky"></fa-icon> Notas</button>
             </li>
             <li class="nav-item" role="presentation" [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{exact:true}">
+                [routerLinkActiveOptions]="{exact:true}" *ngIf="isLogged && authority === 'admin'">
                 <button class="btn btn-primary" [routerLink]="['/asignatura']">
                     <fa-icon [icon]="faBook"></fa-icon> Asignaturas</button>
             </li>
@@ -34,10 +34,9 @@
     </div>
     <div>
         <button class="btn btn-primary" [routerLink]="['/login']" [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{exact:true}">
+            [routerLinkActiveOptions]="{exact:true}" *ngIf="!isLogged">
             <fa-icon [icon]="faUserCheck"></fa-icon> Iniciar Sesión</button>
-        <button class="btn btn-primary-sesion" [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{exact:true}" (click)="onLogOut()">
+        <button class="btn btn-primary-sesion" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" (click)="onLogOut()" *ngIf="isLogged">
         Cerrar Sesión <fa-icon [icon]="faPerson"></fa-icon></button>
     </div>
 </nav>

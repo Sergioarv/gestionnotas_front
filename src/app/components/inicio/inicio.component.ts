@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faSchool,faHouse, faPersonChalkboard, faGraduationCap, faNoteSticky, faBook, faUserCheck, faPersonWalkingArrowRight} from '@fortawesome/free-solid-svg-icons';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-inicio',
@@ -17,9 +18,14 @@ export class InicioComponent implements OnInit {
   faUserCheck = faUserCheck;
   faPerson = faPersonWalkingArrowRight;
 
-  constructor() { }
+  authority: string = '';
+
+  constructor(
+    private tokenService: TokenService
+  ) { }
 
   ngOnInit(): void {
+    this.authority = this.tokenService.getRoles();
   }
 
 }

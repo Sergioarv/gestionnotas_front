@@ -340,6 +340,7 @@ export class ProfesorComponent implements OnInit {
   limpiar() {
     this.filtrarForm.get('nombre')?.setValue('');
     this.filtrarForm.get('apellido')?.setValue('');
+    this.filtrar();
   }
 
   resetearAgregarForm() {
@@ -350,7 +351,7 @@ export class ProfesorComponent implements OnInit {
     this.agregarForm.get('asignaturas')?.setValue('');
     this.agregarForm.get('asignaturasAdd')?.setValue('');
     this.listaAsignaturasAgregar = [];
-
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 
@@ -363,12 +364,13 @@ export class ProfesorComponent implements OnInit {
     this.editarForm.get('asignaturas')?.setValue('');
     this.editarForm.get('asignaturasAdd')?.setValue('');
     this.listaAsignaturasAgregar = [];
-
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 
   resetearEliminarForm() {
     this.profesorEliminar = new Profesor();
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 

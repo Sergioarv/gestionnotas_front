@@ -53,7 +53,7 @@
                     <h5 class="card-title">Lista de notas</h5>
                 </div>
                 <div class="col-8">
-                    <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;">
+                    <button type="button" class="btn btn-primary" (click)="open(content)" style="float: right;" [hidden]="authority === 'estudiante'">
                         <fa-icon [icon]="faPlus"></fa-icon>&nbsp;Agregar Nota</button>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Materia</th>
                         <th scope="col">Calificaión</th>
-                        <th scope="col">Funciones</th>
+                        <th scope="col"  [hidden]="authority === 'estudiante'">Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,13 +75,13 @@
                         <td>{{ nota.nombre }} {{ nota.apellido}}</td>
                         <td>{{ nota.materia }}</td>
                         <td>{{ nota.calificacion }}</td>
-                        <td>
-                            <button type="button" class="btn btn-edit" 
+                        <td  [hidden]="authority === 'estudiante'">
+                            <button type="button" class="btn btn-edit"  [hidden]="authority === 'estudiante'" 
                             (click)="seleccionarEditar(nota, contentEdit)" style="width: fit-content;">
                                 <fa-icon [icon]="faPenToSquare"></fa-icon> Editar
                             </button>
                             &nbsp;
-                            <button type="button" class="btn btn-danger" 
+                            <button type="button" class="btn btn-danger"  [hidden]="authority === 'estudiante'" 
                             (click)="seleccionarEliminar(nota, contentEliminar)" style="width: fit-content;">
                                 <fa-icon [icon]="faTrashCan"></fa-icon> Eliminar
                             </button>

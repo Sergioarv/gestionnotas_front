@@ -11,6 +11,7 @@ import { NotaService } from 'src/app/services/nota.service';
 import { GlobalConstant } from 'src/app/utils/constants/global.constants';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { faUserPlus, faPlus, faMagnifyingGlass, faEraser, faEye, faPenToSquare, faBan, faSave, faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-nota',
@@ -70,13 +71,16 @@ export class NotaComponent implements OnInit {
     idnota: new FormControl('')
   });
 
+  authority: string = '';
+
   constructor(
     private notaService: NotaService,
     private estudianteService: EstudianteService,
     private asignaturaService: AsignaturaService,
     private toastrService: ToastrService,
     private modalService: NgbModal,
-    config: NgbModalConfig
+    config: NgbModalConfig,
+    private tokenService: TokenService
   ) {
     this.listaNota = [];
     this.listaEstudiantes = [];
@@ -85,6 +89,11 @@ export class NotaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authority = this.tokenService.getRoles();
+    if(this.authority === 'estudiante'){
+      this.filtrarForm.get('nombre')?.disable();
+      this.filtrarForm.get('apellido')?.disable();
+    }
     this.listarCombox();
   }
 
@@ -290,7 +299,16 @@ export class NotaComponent implements OnInit {
         this.cargando = false;
       });
     } else{
-      this.filtrar();
+      if(this.authority === 'estudiante'){
+        const nombre = this.tokenService.getNombre();
+        const apellido = this.tokenService.getApellido();
+
+        this.filtrarForm.get('nombre')?.setValue(nombre);
+        this.filtrarForm.get('apellido')?.setValue(apellido);
+        this.filtrar();
+      }else{
+        this.filtrar();
+      }
     }
   }
 
@@ -299,7 +317,7 @@ export class NotaComponent implements OnInit {
     this.filtrarForm.get('apellido')?.setValue('');
     this.filtrarForm.get('materia')?.setValue('');
     this.pagina = 0;
-    this.filtrar();
+    this.verificarEstudiante();
   }
 
   resetearAgregarNotaForm() {

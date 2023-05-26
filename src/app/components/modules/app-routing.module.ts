@@ -5,14 +5,19 @@ import { ProfesorComponent } from '../profesor/profesor.component';
 import { EstudianteComponent } from '../estudiante/estudiante.component';
 import { AsignaturaComponent } from '../asignatura/asignatura.component';
 import { InicioComponent } from '../inicio/inicio.component';
+import { LoginComponent } from '../login/login.component';
+import { GuardService } from 'src/app/guards/guard.service';
+import { LoginGuard } from 'src/app/guards/login.guard';
 
 const routes: Routes = [
-  { path: 'nota', component: NotaComponent},
-  { path: 'profesor', component: ProfesorComponent},
-  { path: 'estudiante', component: EstudianteComponent},
-  { path: 'asignatura', component: AsignaturaComponent},
-  { path: 'inicio', component: InicioComponent},
+  { path: 'nota', component: NotaComponent, canActivate: [ GuardService ], data: {expectedRol: ['admin', 'profesor', 'estudiante'] } },
+  { path: 'profesor', component: ProfesorComponent, canActivate: [ GuardService ], data: {expectedRol: ['admin']}},
+  { path: 'estudiante', component: EstudianteComponent, canActivate: [ GuardService ], data: {expectedRol:['admin','profesor']}},
+  { path: 'asignatura', component: AsignaturaComponent, canActivate: [ GuardService ], data: {expectedRol: ['admin']}},
+  { path: 'inicio', component: InicioComponent, canActivate: [ GuardService ], data: {expectedRol: ['admin', 'profesor', 'estudiante']}},
+  { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ]},
   { path: '', redirectTo: 'inicio', pathMatch: 'full'},
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

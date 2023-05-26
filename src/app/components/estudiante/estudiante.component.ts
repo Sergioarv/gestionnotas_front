@@ -8,6 +8,7 @@ import { EstudianteService } from 'src/app/services/estudiante.service';
 import { GlobalConstant } from 'src/app/utils/constants/global.constants';
 
 import { faUserPlus, faPlus, faMagnifyingGlass, faEraser, faEye, faPenToSquare, faBan, faSave, faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-estudiante',
@@ -39,6 +40,7 @@ export class EstudianteComponent implements OnInit {
   listaEstudiante: Estudiante[];
   estudianteEliminar: Estudiante;
 
+  authority: string = '';
 
   /** variables paginación */
   esPrimero = false;
@@ -72,13 +74,15 @@ export class EstudianteComponent implements OnInit {
     private modalService: NgbModal,
     config: NgbModalConfig,
     private estudianteService: EstudianteService,
-    private route: Router
+    private route: Router,
+    private tokenService: TokenService
   ) {
     this.listaEstudiante = [];
     this.estudianteEliminar = new Estudiante();
   }
 
   ngOnInit(): void {
+    this.authority = this.tokenService.getRoles();
     this.filtrar();
   }
 
@@ -233,6 +237,7 @@ export class EstudianteComponent implements OnInit {
   limpiar() {
     this.filtrarForm.get('nombre')?.setValue('');
     this.filtrarForm.get('apellido')?.setValue('');
+    this.filtrar();
   }
 
   resetearAgregarForm() {
@@ -240,7 +245,7 @@ export class EstudianteComponent implements OnInit {
     this.agregarForm.get('apellido')?.setValue('');
     this.agregarForm.get('correo')?.setValue('');
     this.agregarForm.get('contrasenia')?.setValue('');
-
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 
@@ -250,12 +255,13 @@ export class EstudianteComponent implements OnInit {
     this.editarForm.get('apellido')?.setValue('');
     this.editarForm.get('correo')?.setValue('');
     this.editarForm.get('contrasenia')?.setValue('');
-
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 
   resetearEliminarForm() {
     this.estudianteEliminar = new Estudiante();
+    this.filtrar();
     this.modalService.dismissAll('Close click');
   }
 
