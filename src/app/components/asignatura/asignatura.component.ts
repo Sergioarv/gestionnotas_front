@@ -62,6 +62,8 @@ export class AsignaturaComponent implements OnInit {
   ) {
     this.listaAsignatura = [];
     this.asignaturaEliminar = new Asignatura();
+    config.backdrop = 'static';
+    config.keyboard = false;
   }
 
   ngOnInit(): void {
@@ -126,7 +128,7 @@ export class AsignaturaComponent implements OnInit {
     const nombre = this.editarForm.controls['nombre'].value;
 
     const actualizarAsig = this.listaAsignatura.find((asigR: Asignatura) => asigR.idasignatura === idasignatura);
-
+console.log(actualizarAsig);
     if (actualizarAsig) {
       actualizarAsig.nombre = nombre ? nombre : actualizarAsig.nombre;
 

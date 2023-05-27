@@ -68,7 +68,7 @@
                     <tr *ngFor="let estudiante of listaEstudiante">
                         <td>{{ estudiante.nombre }} {{ estudiante.apellido}}</td>
                         <td>{{ estudiante.correo }}</td>
-                        <td>{{ estudiante.contrasenia }}</td>
+                        <td>{{ estudiante.clave }}</td>
                         <td>
                             <button type="button" class="btn btn-info" [hidden]="estudiante.notas.length == 0"
                                 (click)="mostrarNotas(estudiante)" style="width: fit-content;">

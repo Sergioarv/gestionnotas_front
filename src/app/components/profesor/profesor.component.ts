@@ -86,6 +86,8 @@ export class ProfesorComponent implements OnInit {
     this.listaAsignaturas = [];
     this.listaAsignaturasAgregar = [];
     this.asignaturasProfesorV = "";
+    config.backdrop = 'static';
+    config.keyboard = false;
   }
 
   ngOnInit(): void {
@@ -132,6 +134,7 @@ export class ProfesorComponent implements OnInit {
     nuevoProf.apellido = apellido ? apellido : '';
     nuevoProf.correo = correo ? correo : '';
     nuevoProf.contrasenia = contrasenia ? contrasenia : '';
+    nuevoProf.clave = contrasenia ? contrasenia : '';
     nuevoProf.asignaturas = this.listaAsignaturasAgregar;
 
     this.profesorService.agregar(nuevoProf).subscribe(resp => {
@@ -166,7 +169,8 @@ export class ProfesorComponent implements OnInit {
       actualizarPro.nombre = nombre ? nombre : actualizarPro.nombre;
       actualizarPro.apellido = apellido ? apellido : actualizarPro.apellido;
       actualizarPro.correo = correo ? correo : actualizarPro.correo;
-      actualizarPro.contrasenia = contrasenia ? contrasenia : actualizarPro.contrasenia;
+      actualizarPro.contrasenia = contrasenia ? contrasenia : actualizarPro.clave;
+      actualizarPro.clave = contrasenia ? contrasenia : actualizarPro.clave;
       actualizarPro.asignaturas = this.listaAsignaturasAgregar;
 
       this.profesorService.actualizar(actualizarPro).subscribe(resp => {
@@ -222,7 +226,7 @@ export class ProfesorComponent implements OnInit {
     this.editarForm.get('nombre')?.setValue(profSelec.nombre);
     this.editarForm.get('apellido')?.setValue(profSelec.apellido);
     this.editarForm.get('correo')?.setValue(profSelec.correo);
-    this.editarForm.get('contrasenia')?.setValue(profSelec.contrasenia);
+    this.editarForm.get('contrasenia')?.setValue(profSelec.clave);
     this.editarForm.get('asignaturas')?.setValue('');
     this.editarForm.get('asignaturasAdd')?.setValue('');
 
@@ -235,6 +239,7 @@ export class ProfesorComponent implements OnInit {
     this.profesorEliminar.apellido = profesor.apellido;
     this.profesorEliminar.correo = profesor.correo;
     this.profesorEliminar.contrasenia = profesor.contrasenia;
+    this.profesorEliminar.clave = profesor.clave;
 
     this.open(contentEliminar);
   }

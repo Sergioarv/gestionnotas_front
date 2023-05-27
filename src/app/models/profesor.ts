@@ -6,6 +6,7 @@ export class Profesor{
     apellido: string;
     correo: string;
     contrasenia: string;
+    clave: string;
     asignaturas: Asignatura[];
     roles: string[];
 
@@ -15,6 +16,7 @@ export class Profesor{
         this.apellido = "";
         this.correo = "";
         this.contrasenia = "";
+        this.clave = "";
         this.asignaturas = [];
         this.roles = [];
     }

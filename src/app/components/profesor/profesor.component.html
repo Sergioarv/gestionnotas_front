@@ -68,7 +68,7 @@
                     <tr *ngFor="let profesor of listaProfesor">
                         <td>{{ profesor.nombre }} {{ profesor.apellido}}</td>
                         <td>{{ profesor.correo }}</td>
-                        <td>{{ profesor.contrasenia }}</td>
+                        <td>{{ profesor.clave }}</td>
                         <td>
                             <button type="button" class="btn btn-info" [hidden]="profesor.asignaturas.length == 0"
                                 (click)="mostrarAsignaturas(profesor, contentAsignaturas)" style="width: fit-content;">

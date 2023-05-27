@@ -79,6 +79,8 @@ export class EstudianteComponent implements OnInit {
   ) {
     this.listaEstudiante = [];
     this.estudianteEliminar = new Estudiante();
+    config.backdrop = 'static';
+    config.keyboard = false;
   }
 
   ngOnInit(): void {
@@ -125,6 +127,7 @@ export class EstudianteComponent implements OnInit {
     nuevoEst.apellido = apellido ? apellido : '';
     nuevoEst.correo = correo ? correo : '';
     nuevoEst.contrasenia = contrasenia ? contrasenia : '';
+    nuevoEst.clave = contrasenia ? contrasenia : '';
 
     this.estudianteService.agregar(nuevoEst).subscribe(resp => {
       if (resp.success) {
@@ -159,7 +162,8 @@ export class EstudianteComponent implements OnInit {
       actualizarEst.nombre = nombre ? nombre : actualizarEst.nombre;
       actualizarEst.apellido = apellido ? apellido : actualizarEst.apellido;
       actualizarEst.correo = correo ? correo : actualizarEst.correo;
-      actualizarEst.contrasenia = contrasenia ? contrasenia : actualizarEst.contrasenia;
+      actualizarEst.contrasenia = contrasenia ? contrasenia : actualizarEst.clave;
+      actualizarEst.clave = contrasenia ? contrasenia : actualizarEst.clave;
 
       this.estudianteService.actualizar(actualizarEst).subscribe(resp => {
         if (resp.success) {
@@ -211,7 +215,7 @@ export class EstudianteComponent implements OnInit {
     this.editarForm.get('nombre')?.setValue(estSelec.nombre);
     this.editarForm.get('apellido')?.setValue(estSelec.apellido);
     this.editarForm.get('correo')?.setValue(estSelec.correo);
-    this.editarForm.get('contrasenia')?.setValue(estSelec.contrasenia);
+    this.editarForm.get('contrasenia')?.setValue(estSelec.clave);
 
     this.open(contentEdit);
   }
@@ -222,6 +226,7 @@ export class EstudianteComponent implements OnInit {
     this.estudianteEliminar.apellido = estudiante.apellido;
     this.estudianteEliminar.correo = estudiante.correo;
     this.estudianteEliminar.contrasenia = estudiante.contrasenia;
+    this.estudianteEliminar.clave = estudiante.clave;
 
     this.open(contentEliminar);
   }
